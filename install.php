@@ -64,84 +64,94 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->execute();
         }
 
-        // 添加主页已有的链接
-        $links = [
-            ['ai-search', 'Google', 'https://www.google.com', 'fab fa-google'],
-            ['ai-search', 'Bing', 'https://www.bing.com', 'fab fa-microsoft'],
-            ['ai-search', 'websim', 'https://websim.ai/', 'fas fa-search'],
-            ['ai-search', 'chatgpt', 'https://chatgpt.com/', 'fab fa-google'],
-            ['ai-search', '傻豆包', 'https://www.doubao.com/chat/', 'fas fa-paw'],
-            ['ai-search', '傻元宝', 'https://yuanbao.tencent.com/', 'fas fa-robot'],
-            ['ai-search', 'poe', 'https://poe.com/', 'fas fa-robot'],
-            ['ai-search', 'claude', 'https://claude.ai/', 'fas fa-robot'],
-            ['ai-search', 'ChandlerAi', 'https://chandler.bet/', 'fas fa-robot'],
-            ['ai-search', 'mistral', 'https://mistral.ai/', 'fas fa-brain'],
-            ['ai-search', '循证医学UTD', 'http://u.90tsg.com/', 'fas fa-clinic-medical'],
-            ['ai-search', 'medscape', 'https://www.medscape.com/', 'fas fa-stethoscope'],
-            ['ai-search', '免费oaichat', 'https://chat.oaichat.cc/', 'fab fa-rocketchat'],
-            ['ai-search', 'leonardo.ai绘图', 'https://app.leonardo.ai/', 'far fa-images'],
-            ['ai-search', 'huggingface', 'https://huggingface.co/', 'fas fa-meh-rolling-eyes'],
-            ['ai-search', 'lmarena', 'https://lmarena.ai/', 'fas fa-robot'],
-            ['ai-search', 'kelaode', 'https://kelaode.ai/', 'fas fa-robot'],
-            ['social', 'Facebook', 'https://www.facebook.com', 'fab fa-facebook'],
-            ['social', 'Twitter', 'https://twitter.com', 'fab fa-twitter'],
-            ['social', 'Instagram', 'https://www.instagram.com', 'fab fa-instagram'],
-            ['social', 'LinkedIn', 'https://www.linkedin.com', 'fab fa-linkedin'],
-            ['social', 'TikTok', 'https://www.tiktok.com', 'fab fa-tiktok'],
-            ['social', 'Reddit', 'https://www.reddit.com', 'fab fa-reddit'],
-            ['social', 'GitHub', 'https://github.com/', 'fab fa-github'],
-            ['tools', 'Google翻译', 'https://translate.google.com', 'fas fa-language'],
-            ['tools', '短链', 'https://d.186404.xyz/', 'fas fa-link'],
-            ['tools', 'dynv6', 'https://dynv6.com/', 'fas fa-network-wired'],
-            ['tools', '网速测试', 'https://fast.com/', 'fas fa-tachometer-alt'],
-            ['tools', 'Cloudns', 'https://www.cloudns.net/', 'fas fa-cloud'],
-            ['tools', 'Cloudflare', 'https://www.cloudflare.com/zh-cn/', 'fas fa-shield-alt'],
-            ['tools', '一个朋友', 'https://ygpy.net/', 'fas fa-user-friends'],
-            ['tools', '谷歌笔记', 'https://notebooklm.google/', 'fas fa-book'],
-            ['tools', '临时邮箱', 'https://email.ml/', 'fas fa-envelope'],
-            ['tools', 'A姐', 'https://www.ahhhhfs.com/', 'fas fa-blog'],
-            ['tools', 'IP查询', 'https://ip.sb/', 'fas fa-map-marker-alt'],
-            ['tools', '图床', 'https://img.186404.xyz/', 'fas fa-image'],
-            ['tools', 'Site域名转发', 'https://www.site.ac/', 'fas fa-exchange-alt'],
-            ['tools', 'Z-Library', 'https://zh.go-to-library.sk/', 'fas fa-book-reader'],
-            ['tools', 'us.kg域名', 'https://nic.us.kg/', 'fas fa-globe'],
-            ['tools', 'Spaceship廉价域名', 'https://www.spaceship.com/zh/', 'fas fa-space-shuttle'],
-            ['tools', 'HiN-VPN', 'https://itsyebekhe.github.io/HiN-VPN/', 'fas fa-walking'],
-            ['tools', 'FontAwesome图标', 'https://fontawesome.com/', 'fas fa-icons'],
-            ['tools', 'ip清洁度查询', 'https://scamalytics.com/', 'fas fa-icons'],
-            ['tools', 'test-ipv6', 'https://test-ipv6.com/', 'fas fa-ethernet'],
-            ['tools', 'zone/ip', 'https://html.zone/ip', 'fab fa-sourcetree'],
-            ['tools', '免费网络代理', 'https://www.lumiproxy.com/zh-hans/online-proxy/proxysite/', 'fas fa-unlock'],
-            ['tools', 'ipcheck', 'https://ipcheck.ing/', 'fas fa-map-marker-alt'],
-            ['tools', '定时任务cron-job', 'https://console.cron-job.org/', 'fas fa-ethernet'],
-            ['tools', 'uptimerobot', 'https://uptimerobot.com/', 'fas fa-map-marker-alt'],
-            ['tools', 'forwardemail', 'https://forwardemail.net/', 'fas fa-mail-bulk'],
-            ['tools', 'improvmx', 'https://improvmx.com/', 'fas fa-mail-bulk'],
-            ['tech-news', 'TechCrunch', 'https://www.techcrunch.com', 'fas fa-newspaper'],
-            ['tech-news', 'Wired', 'https://www.wired.com', 'fas fa-bolt'],
-            ['tech-news', 'The Verge', 'https://www.theverge.com', 'fas fa-laptop'],
-            ['tech-news', 'Ars Technica', 'https://arstechnica.com', 'fas fa-rocket'],
-            ['tech-news', 'Engadget', 'https://www.engadget.com', 'fas fa-mobile-alt'],
-            ['tech-news', 'TechRadar', 'https://techradar.com', 'fas fa-satellite'],
-            ['cloud-storage', 'Dropbox', 'https://www.dropbox.com', 'fas fa-cloud'],
-            ['cloud-storage', 'Google Drive', 'https://drive.google.com', 'fab fa-google-drive'],
-            ['cloud-storage', 'OneDrive', 'https://onedrive.live.com', 'fab fa-microsoft'],
-            ['cloud-storage', 'Box', 'https://www.box.com', 'fas fa-box'],
-            ['cloud-storage', 'MediaFire', 'https://www.mediafire.com', 'fas fa-file-alt'],
-            ['cloud-storage', 'MEGA', 'https://mega.nz', 'fas fa-cloud-upload-alt'],
-            ['email', 'Gmail', 'https://mail.google.com', 'fas fa-envelope'],
-            ['email', 'Outlook', 'https://outlook.live.com', 'fab fa-microsoft'],
-            ['email', 'GMail临时邮箱', 'https://22.do/', 'fas fa-envelope-open'],
-            ['email', '临时gMail', 'https://www.agogmail.com/', 'fas fa-envelope-square'],
-            ['email', 'ProtonMail', 'https://www.protonmail.com', 'fas fa-shield-alt'],
-            ['email', 'QQ邮箱', 'https://mail.qq.com', 'fab fa-qq'],
-            ['email', '临时G邮箱', 'https://www.emailnator.com/', 'fas fa-at'],
-        ];
+        // 在插入链接之前，先检查数据库是否为空
+        $check_links = $conn->query("SELECT COUNT(*) as count FROM links");
+        $row = $check_links->fetch_assoc();
 
-        $stmt = $conn->prepare("INSERT IGNORE INTO links (category_id, title, url, icon) VALUES ((SELECT id FROM categories WHERE slug = ?), ?, ?, ?)");
-        foreach ($links as $link) {
-            $stmt->bind_param("ssss", $link[0], $link[1], $link[2], $link[3]);
-            $stmt->execute();
+        if ($row['count'] == 0) {
+            // 只有在数据库为空时才插入链接
+            $links = [
+                ['ai-search', 'Google', 'https://www.google.com', 'fab fa-google'],
+                ['ai-search', 'Bing', 'https://www.bing.com', 'fab fa-microsoft'],
+                ['ai-search', 'websim', 'https://websim.ai/', 'fas fa-search'],
+                ['ai-search', 'chatgpt', 'https://chatgpt.com/', 'fab fa-google'],
+                ['ai-search', '傻豆包', 'https://www.doubao.com/chat/', 'fas fa-paw'],
+                ['ai-search', '傻元宝', 'https://yuanbao.tencent.com/', 'fas fa-robot'],
+                ['ai-search', 'poe', 'https://poe.com/', 'fas fa-robot'],
+                ['ai-search', 'claude', 'https://claude.ai/', 'fas fa-robot'],
+                ['ai-search', 'ChandlerAi', 'https://chandler.bet/', 'fas fa-robot'],
+                ['ai-search', 'mistral', 'https://mistral.ai/', 'fas fa-brain'],
+                ['ai-search', '循证医学UTD', 'http://u.90tsg.com/', 'fas fa-clinic-medical'],
+                ['ai-search', 'medscape', 'https://www.medscape.com/', 'fas fa-stethoscope'],
+                ['ai-search', '免费oaichat', 'https://chat.oaichat.cc/', 'fab fa-rocketchat'],
+                ['ai-search', 'leonardo.ai绘图', 'https://app.leonardo.ai/', 'far fa-images'],
+                ['ai-search', 'huggingface', 'https://huggingface.co/', 'fas fa-meh-rolling-eyes'],
+                ['ai-search', 'lmarena', 'https://lmarena.ai/', 'fas fa-robot'],
+                ['ai-search', 'kelaode', 'https://kelaode.ai/', 'fas fa-robot'],
+                ['social', 'Facebook', 'https://www.facebook.com', 'fab fa-facebook'],
+                ['social', 'Twitter', 'https://twitter.com', 'fab fa-twitter'],
+                ['social', 'Instagram', 'https://www.instagram.com', 'fab fa-instagram'],
+                ['social', 'LinkedIn', 'https://www.linkedin.com', 'fab fa-linkedin'],
+                ['social', 'TikTok', 'https://www.tiktok.com', 'fab fa-tiktok'],
+                ['social', 'Reddit', 'https://www.reddit.com', 'fab fa-reddit'],
+                ['social', 'GitHub', 'https://github.com/', 'fab fa-github'],
+                ['tools', 'Google翻译', 'https://translate.google.com', 'fas fa-language'],
+                ['tools', '短链', 'https://d.186404.xyz/', 'fas fa-link'],
+                ['tools', 'dynv6', 'https://dynv6.com/', 'fas fa-network-wired'],
+                ['tools', '网速测试', 'https://fast.com/', 'fas fa-tachometer-alt'],
+                ['tools', 'Cloudns', 'https://www.cloudns.net/', 'fas fa-cloud'],
+                ['tools', 'Cloudflare', 'https://www.cloudflare.com/zh-cn/', 'fas fa-shield-alt'],
+                ['tools', '一个朋友', 'https://ygpy.net/', 'fas fa-user-friends'],
+                ['tools', '谷歌笔记', 'https://notebooklm.google/', 'fas fa-book'],
+                ['tools', '临时邮箱', 'https://email.ml/', 'fas fa-envelope'],
+                ['tools', 'A姐', 'https://www.ahhhhfs.com/', 'fas fa-blog'],
+                ['tools', 'IP查询', 'https://ip.sb/', 'fas fa-map-marker-alt'],
+                ['tools', '图床', 'https://img.186404.xyz/', 'fas fa-image'],
+                ['tools', 'Site域名转发', 'https://www.site.ac/', 'fas fa-exchange-alt'],
+                ['tools', 'Z-Library', 'https://zh.go-to-library.sk/', 'fas fa-book-reader'],
+                ['tools', 'us.kg域名', 'https://nic.us.kg/', 'fas fa-globe'],
+                ['tools', 'Spaceship廉价域名', 'https://www.spaceship.com/zh/', 'fas fa-space-shuttle'],
+                ['tools', 'HiN-VPN', 'https://itsyebekhe.github.io/HiN-VPN/', 'fas fa-walking'],
+                ['tools', 'FontAwesome图标', 'https://fontawesome.com/', 'fas fa-icons'],
+                ['tools', 'ip清洁度查询', 'https://scamalytics.com/', 'fas fa-icons'],
+                ['tools', 'test-ipv6', 'https://test-ipv6.com/', 'fas fa-ethernet'],
+                ['tools', 'zone/ip', 'https://html.zone/ip', 'fab fa-sourcetree'],
+                ['tools', '免费网络代理', 'https://www.lumiproxy.com/zh-hans/online-proxy/proxysite/', 'fas fa-unlock'],
+                ['tools', 'ipcheck', 'https://ipcheck.ing/', 'fas fa-map-marker-alt'],
+                ['tools', '定时任务cron-job', 'https://console.cron-job.org/', 'fas fa-ethernet'],
+                ['tools', 'uptimerobot', 'https://uptimerobot.com/', 'fas fa-map-marker-alt'],
+                ['tools', 'forwardemail', 'https://forwardemail.net/', 'fas fa-mail-bulk'],
+                ['tools', 'improvmx', 'https://improvmx.com/', 'fas fa-mail-bulk'],
+                ['tech-news', 'TechCrunch', 'https://www.techcrunch.com', 'fas fa-newspaper'],
+                ['tech-news', 'Wired', 'https://www.wired.com', 'fas fa-bolt'],
+                ['tech-news', 'The Verge', 'https://www.theverge.com', 'fas fa-laptop'],
+                ['tech-news', 'Ars Technica', 'https://arstechnica.com', 'fas fa-rocket'],
+                ['tech-news', 'Engadget', 'https://www.engadget.com', 'fas fa-mobile-alt'],
+                ['tech-news', 'TechRadar', 'https://techradar.com', 'fas fa-satellite'],
+                ['cloud-storage', 'Dropbox', 'https://www.dropbox.com', 'fas fa-cloud'],
+                ['cloud-storage', 'Google Drive', 'https://drive.google.com', 'fab fa-google-drive'],
+                ['cloud-storage', 'OneDrive', 'https://onedrive.live.com', 'fab fa-microsoft'],
+                ['cloud-storage', 'Box', 'https://www.box.com', 'fas fa-box'],
+                ['cloud-storage', 'MediaFire', 'https://www.mediafire.com', 'fas fa-file-alt'],
+                ['cloud-storage', 'MEGA', 'https://mega.nz', 'fas fa-cloud-upload-alt'],
+                ['email', 'Gmail', 'https://mail.google.com', 'fas fa-envelope'],
+                ['email', 'Outlook', 'https://outlook.live.com', 'fab fa-microsoft'],
+                ['email', 'GMail临时邮箱', 'https://22.do/', 'fas fa-envelope-open'],
+                ['email', '临时gMail', 'https://www.agogmail.com/', 'fas fa-envelope-square'],
+                ['email', 'ProtonMail', 'https://www.protonmail.com', 'fas fa-shield-alt'],
+                ['email', 'QQ邮箱', 'https://mail.qq.com', 'fab fa-qq'],
+                ['email', '临时G邮箱', 'https://www.emailnator.com/', 'fas fa-at'],
+            ];
+
+            $stmt = $conn->prepare("INSERT INTO links (category_id, title, url, icon) VALUES ((SELECT id FROM categories WHERE slug = ?), ?, ?, ?)");
+            foreach ($links as $link) {
+                $stmt->bind_param("ssss", $link[0], $link[1], $link[2], $link[3]);
+                $stmt->execute();
+            }
+
+            echo "链接已成功添加到数据库。<br>";
+        } else {
+            echo "数据库中已存在链接，跳过链接插入步骤。<br>";
         }
 
         // 添加管理员用户
@@ -159,6 +169,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $config .= "\$password = '{$_SESSION['db_pass']}';\n";
         $config .= "\$dbname = '{$_SESSION['db_name']}';\n";
         file_put_contents('db_config.php', $config);
+
+        // 添加以下代码来执行SQL语句
+        $sql = "DELETE l1 FROM links l1
+                INNER JOIN links l2 
+                WHERE l1.url = l2.url AND l1.id > l2.id";
+        if ($conn->query($sql) === TRUE) {
+            echo "重复链接已删除<br>";
+        } else {
+            echo "错误: " . $conn->error . "<br>";
+        }
+
+        $sql = "ALTER TABLE links ADD UNIQUE INDEX (url)";
+        if ($conn->query($sql) === TRUE) {
+            echo "URL唯一索引已添加<br>";
+        } else {
+            echo "错误: " . $conn->error . "<br>";
+        }
 
         header('Location: install.php?step=4');
         exit;

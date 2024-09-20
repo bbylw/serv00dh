@@ -108,12 +108,29 @@ if (isset($_POST['change_password'])) {
         input[type="submit"] { background: #333; color: #fff; padding: 10px 15px; border: none; cursor: pointer; }
         input[type="submit"]:hover { background: #555; }
         .category-filter { margin-bottom: 20px; }
+        .admin-actions { margin-top: 20px; }
+        .admin-actions a { 
+            display: inline-block; 
+            margin-right: 10px; 
+            padding: 10px 15px; 
+            background-color: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+        .admin-actions a:hover { background-color: #0056b3; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>WebNav Hub 管理</h1>
         
+        <!-- 添加管理操作区域 -->
+        <div class="admin-actions">
+            <a href="clean_database.php">清理数据库</a>
+            <a href="logout.php">退出登录</a>
+        </div>
+
         <h2>添加新链接</h2>
         <form method="post">
             <select name="category_id" required>
